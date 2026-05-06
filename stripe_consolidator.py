@@ -5,9 +5,14 @@ import glob
 import pandas as pd
 
 
-def new_format_data(filepath: str, column_names: str) -> pd.DataFrame:
+def new_format_data(filepath: str, column_names: list) -> pd.DataFrame:
     """
     create a list of dataframes in the new format specifying the filepath and column names str
+    args:
+        filepath: str
+        column_names: list columns in the dataframe
+    returns:
+        df of all data
     """
 
     data = [pd.read_csv(file, sep=",", usecols=column_names) for file in filepath]
@@ -18,7 +23,6 @@ def new_format_data(filepath: str, column_names: str) -> pd.DataFrame:
     
     return df
 
-
 def old_format_data(filepath: str, column_names: list) -> pd.DataFrame:
     """
     create a list of dataframes in the old format specifying the filepath and column names str
@@ -26,10 +30,10 @@ def old_format_data(filepath: str, column_names: list) -> pd.DataFrame:
 
     data_2022 = [pd.read_csv(file,sep=",", usecols=column_names) for file in filepath]
     dfs_may_2023 = [
-        pd.read_csv("data/2023/January 2023.csv", usecols=column_names),
-        pd.read_csv("data/2023/February 2023.csv", usecols=column_names), 
-        pd.read_csv("data/2023/March 2023.csv", usecols=column_names),
-        pd.read_csv("data/2023/April 2023.csv", usecols=column_names)   
+        pd.read_csv("../Stripe Statements/2023/January 2023.csv", usecols=column_names),
+        pd.read_csv("../Stripe Statements/2023/February 2023.csv", usecols=column_names), 
+        pd.read_csv("../Stripe Statements/2023/March 2023.csv", usecols=column_names),
+        pd.read_csv("../Stripe Statements/2023/April 2023.csv", usecols=column_names)   
     ]
 
     df = pd.concat([
@@ -43,7 +47,7 @@ def old_format_data(filepath: str, column_names: list) -> pd.DataFrame:
 def main():
     
     # 2022 filepath
-    filepath_2022 = glob.glob("data/2022/*.csv")
+    filepath_2022 = glob.glob("../Stripe Statements/2022/*.csv")
 
     # old column names
     column_names = [
@@ -89,14 +93,17 @@ def main():
     },inplace=True)
     
     # get new fmt data
-    filepath_2024 = glob.glob("data/2024/*.csv")
+    filepath_2024 = glob.glob("../Stripe Statements/2024/*.csv")
     df_2024_fmt = new_format_data(filepath_2024, column_names=column_names_new)
+    df_2024_fmt.rename(columns={"customer_facing_amount":"amount"},inplace=True)
 
-    filepath_2025 = glob.glob("data/2025/*.csv")
+    filepath_2025 = glob.glob("../Stripe Statements/2025/*.csv")
     df_2025_fmt = new_format_data(filepath_2025, column_names=column_names_new)
+    df_2025_fmt.rename(columns={"customer_facing_amount":"amount"},inplace=True)
     
-    filepath_2026 = glob.glob("data/2026/*.csv")
+    filepath_2026 = glob.glob("../Stripe Statements/2026/*.csv")
     df_2026_fmt = new_format_data(filepath_2026, column_names=column_names_new)
+    df_2026_fmt.rename(columns={"customer_facing_amount":"amount"},inplace=True)
 
     # save all data
     df = pd.concat([df_old_fmt, df_2024_fmt, df_2025_fmt, df_2026_fmt], axis=0)
