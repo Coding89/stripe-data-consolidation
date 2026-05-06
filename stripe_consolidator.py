@@ -1,5 +1,5 @@
 """
-The script automatically consolidates Stripe/donor reports into a single Pandas dataframe.
+The script automatically consolidates Stripe donor reports into a single Pandas dataframe.
 """
 import glob
 import pandas as pd
