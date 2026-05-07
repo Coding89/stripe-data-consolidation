@@ -27,7 +27,15 @@ def old_format_data(filepath: str, column_names: list) -> pd.DataFrame:
     """
     create a list of dataframes in the old format specifying the filepath and column names str
     """
-
+    data_2021 = [
+        pd.read_csv("../Stripe Statements/2021_06_to_2021_12/June_2021.csv", usecols=column_names),
+        pd.read_csv("../Stripe Statements/2021_06_to_2021_12/July_2021.csv", usecols=column_names),
+        pd.read_csv("../Stripe Statements/2021_06_to_2021_12/August_2021.csv", usecols=column_names),
+        pd.read_csv("../Stripe Statements/2021_06_to_2021_12/September_2021.csv", usecols=column_names),
+        pd.read_csv("../Stripe Statements/2021_06_to_2021_12/October_2021.csv", usecols=column_names),
+        pd.read_csv("../Stripe Statements/2021_06_to_2021_12/November_2021.csv", usecols=column_names),
+        pd.read_csv("../Stripe Statements/2021_06_to_2021_12/December_2021.csv", usecols=column_names),
+    ]
     data_2022 = [pd.read_csv(file,sep=",", usecols=column_names) for file in filepath]
     dfs_may_2023 = [
         pd.read_csv("../Stripe Statements/2023/January 2023.csv", usecols=column_names),
@@ -37,6 +45,7 @@ def old_format_data(filepath: str, column_names: list) -> pd.DataFrame:
     ]
 
     df = pd.concat([
+        pd.concat(data_2021, axis=0),
         pd.concat(data_2022, axis=0),
         pd.concat(dfs_may_2023, axis=0)
     ], axis=0)
