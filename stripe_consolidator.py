@@ -130,7 +130,7 @@ def main():
     # save all data
     df = pd.concat([df_old_fmt, df_2024_fmt, df_2025_fmt, df_2026_fmt], axis=0)
     df=str_to_datetime(df, name="created_utc")
-    df.to_csv("full_data.csv", index=False)
+    df.to_parquet("full_data.parquet", index=False, engine="pyarrow", compression="snappy")
 
 if __name__ == "__main__":
     
