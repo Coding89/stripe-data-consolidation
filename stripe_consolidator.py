@@ -4,6 +4,19 @@ The script automatically consolidates Stripe monthly finanacial statements into 
 import glob
 import pandas as pd
 
+def str_to_datetime(df: pd.DataFrame, name: str) -> pd.DataFrame:
+    """
+    converting a named series to datetime from str
+    args:
+        df: pd.Dataframe
+        name: str
+    returns:
+        pd.DataFrame
+    """
+    
+    df[name] = pd.to_datetime(df[name], format="mixed", errors="raise")
+    
+    return df 
 
 def new_format_data(filepath: str, column_names: list) -> pd.DataFrame:
     """
@@ -116,6 +129,7 @@ def main():
 
     # save all data
     df = pd.concat([df_old_fmt, df_2024_fmt, df_2025_fmt, df_2026_fmt], axis=0)
+    df=str_to_datetime(df, name="created_utc")
     df.to_csv("full_data.csv", index=False)
 
 if __name__ == "__main__":
