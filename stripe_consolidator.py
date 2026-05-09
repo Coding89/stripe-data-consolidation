@@ -73,30 +73,30 @@ def main():
 
     # old column names
     column_names = [
-        "id",
+        "donorbox_name (metadata)",
         "Description",
         "Created (UTC)",
         "Amount",
-        "Currency",
         "Fee",
         "Customer ID",
-        "donorbox_name (metadata)",
-        "donorbox_email (metadata)",
-        "donorbox_recurring_donation (metadata)"
+        "donorbox_recurring_donation (metadata)",
+        "id",
+        "Currency",
+        "donorbox_email (metadata)"
     ]
 
     # required column names    
     column_names_new = [
-        "balance_transaction_id",
+        "customer_name",
         "description",
         "created_utc",
         "customer_facing_amount",
-        "currency",
         "fee",
         "customer_id",
-        "customer_name",
-        "customer_email",
-        "payment_metadata[donorbox_recurring_donation]"
+        "payment_metadata[donorbox_recurring_donation]",
+        "balance_transaction_id",
+        "currency",
+        "customer_email"
     ]
     
     # map new column names to old fmt dataframe
