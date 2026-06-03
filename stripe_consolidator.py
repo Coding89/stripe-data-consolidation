@@ -19,12 +19,12 @@ def str_to_datetime(df: pd.DataFrame, name: str) -> pd.DataFrame:
     returns:
         pd.DataFrame
     """
-    if [name] in df.columns:
+    if name in df.columns:
         df[name] = pd.to_datetime(df[name], format="mixed", errors="raise")
     
     return df 
 
-def new_format_data(filepath: str, column_names: list) -> pd.DataFrame:
+def new_format_data(filepaths: str, column_names: list) -> pd.DataFrame:
     """
     create a list of dataframes in the new format specifying the filepath and column names str
     args:
@@ -33,8 +33,10 @@ def new_format_data(filepath: str, column_names: list) -> pd.DataFrame:
     returns:
         df of all data
     """
-
-    data = [pd.read_csv(file, sep=",", usecols=column_names) for file in filepath]
+    if not filepaths:
+        return pd.DataFrame()
+    
+    data = [pd.read_csv(file, sep=",", usecols=column_names) for file in filepaths]
 
     df = pd.concat([
         pd.concat(data, axis=0),
