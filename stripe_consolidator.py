@@ -1,15 +1,7 @@
 """
-The script automatically consolidates Stripe monthly finanacial statements into a single Pandas dataframe for easier readibility.
-
-Supports:
-* Old stripe export format (2021-2023)
-* New Stripe export format (2024 onwards)
-
-Any future year folders will be picked up automatically
+The script automatically consolidates Stripe monthly finanacial statements into a single Pandas dataframe.
 """
 import glob
-import os
-import re
 import pandas as pd
 
 def str_to_datetime(df: pd.DataFrame, name: str) -> pd.DataFrame:
@@ -21,12 +13,12 @@ def str_to_datetime(df: pd.DataFrame, name: str) -> pd.DataFrame:
     returns:
         pd.DataFrame
     """
-    if name in df.columns:
-        df[name] = pd.to_datetime(df[name], format="mixed", errors="raise")
+    
+    df[name] = pd.to_datetime(df[name], format="mixed", errors="raise")
     
     return df 
 
-def new_format_data(filepaths: str, column_names: list) -> pd.DataFrame:
+def new_format_data(filepath: str, column_names: list) -> pd.DataFrame:
     """
     create a list of dataframes in the new format specifying the filepath and column names str
     args:
@@ -35,12 +27,14 @@ def new_format_data(filepaths: str, column_names: list) -> pd.DataFrame:
     returns:
         df of all data
     """
-    if not filepaths:
-        return pd.DataFrame()
+
+    data = [pd.read_csv(file, sep=",", usecols=column_names) for file in filepath]
+
+    df = pd.concat([
+        pd.concat(data, axis=0),
+    ], axis=0)
     
-    data = [pd.read_csv(file, sep=",", usecols=column_names) for file in filepaths]
-    
-    return pd.concat(data, axis=0, ignore_index=True)
+    return df
 
 def old_format_data(filepath: str, column_names: list) -> pd.DataFrame:
     """
@@ -67,16 +61,15 @@ def old_format_data(filepath: str, column_names: list) -> pd.DataFrame:
         pd.concat(data_2021, axis=0),
         pd.concat(data_2022, axis=0),
         pd.concat(dfs_may_2023, axis=0)
-    ], axis=0, ignore_index=True)
+    ], axis=0)
     
     return df
 
 
 def main():
-    base_dir = "../stripe-statements"
     
     # 2022 filepath
-    filepath_2022 = glob.glob(f"{base_dir}../stripe-statements/2022/*.csv")
+    filepath_2022 = glob.glob("../stripe-statements/2022/*.csv")
 
     # old column names
     column_names = [
@@ -121,31 +114,16 @@ def main():
         "donorbox_recurring_donation (metadata)":"payment_metadata[donorbox_recurring_donation]"
     },inplace=True)
     
-    # automatically loops through all folders starting from 2024 onwards
-    all_dfs = [df_old_fmt]
-    
-    if os.path.exists(base_dir):
-        for item in sorted(os.listdir(base_dir)):
-            if re.match(r"^\d{4}$", item):
-                year = int(item)
-                if year >= 2024:
-                    year_folder_files = glob.glob(f"{base_dir}/{item}/*.csv")
-                    if year_folder_files:
-                        print(f"Processing new format folder:{item}")
-                        df_year = new_format_data(year_folder_files, column_names_new)
-                        df_year.rename(columns={"customer_facing_amount": "amount"}, inplace=True)
-                        all_dfs.apenned(df_year)
-    
-    # get new fmt data + add new filepaths every year
-    filepath_2024 = glob.glob("../stripe-statements/2024/*.csv")
+    # get new fmt data
+    filepath_2024 = glob.glob("../Stripe Statements/2024/*.csv")
     df_2024_fmt = new_format_data(filepath_2024, column_names=column_names_new)
     df_2024_fmt.rename(columns={"customer_facing_amount":"amount"},inplace=True)
 
-    filepath_2025 = glob.glob("../stripe-statements/2025/*.csv")
+    filepath_2025 = glob.glob("../Stripe Statements/2025/*.csv")
     df_2025_fmt = new_format_data(filepath_2025, column_names=column_names_new)
     df_2025_fmt.rename(columns={"customer_facing_amount":"amount"},inplace=True)
     
-    filepath_2026 = glob.glob("../stripe-statements/2026/*.csv")
+    filepath_2026 = glob.glob("../Stripe Statements/2026/*.csv")
     df_2026_fmt = new_format_data(filepath_2026, column_names=column_names_new)
     df_2026_fmt.rename(columns={"customer_facing_amount":"amount"},inplace=True)
 
@@ -153,7 +131,5 @@ def main():
     df = pd.concat([df_old_fmt, df_2024_fmt, df_2025_fmt, df_2026_fmt], axis=0)
     df=str_to_datetime(df, name="created_utc")
     df.to_parquet("full_data.parquet", index=False, engine="pyarrow", compression="snappy")
-
-if __name__ == "__main__":
     
     main()
