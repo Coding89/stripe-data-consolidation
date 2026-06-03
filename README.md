@@ -8,10 +8,10 @@
 
 As our non-profit grew, managing historical financial data from Stripe became problematic over time due to two major challenges:
 
-- Fragmented Storage: The data is spread across multiple separate CSV files, organised into different structures by year (for example: 2021_06_to_2021_12, 2023, etc) This fragmentation made it incredibly difficult to perform multi-year financial analysis or reporting.
+- Fragmented Storage: The data is spread across multiple separate CSV files and organised into different structures by year (for example: 2021_06_to_2021_12, 2023, etc). This fragmentation made it incredibly difficult to perform multi-year financial analysis or reporting.
 - Schema Drift (different formats): In 2023, Stripe decided to update its reporting export format.
-  - _Old format_: Used colun headers like "id", "amount", "created_utc" and specific Donorbox metadata strings ("donorbox_name (metadata)).
-  - _New format_: Standardised to snake_case headers like "balance_transaction_id", "customer_facing_amount", "created_utc", and structured metadata brackets ("payment_metadata[donorbox_recurring_donation]).
+  - _The Old format_: Used colun headers like "id", "amount", "created_utc" and specific Donorbox metadata strings ("donorbox_name (metadata)).
+  - _The New format_: Standardised to snake_case headers like "balance_transaction_id", "customer_facing_amount", "created_utc", and structured metadata brackets ("payment_metadata[donorbox_recurring_donation]).
 
 Impact: Because of these mismatched column names and shifting date formats, a standard, straightforward merge or append of all files would fail or result in corrupted or missing data.
 
