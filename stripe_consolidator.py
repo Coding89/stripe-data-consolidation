@@ -71,9 +71,10 @@ def old_format_data(filepath: str, column_names: list) -> pd.DataFrame:
 
 
 def main():
+    base_dir = "../stripe-statements"
     
     # 2022 filepath
-    filepath_2022 = glob.glob("../stripe-statements/2022/*.csv")
+    filepath_2022 = glob.glob(f"{base_dir}../stripe-statements/2022/*.csv")
 
     # old column names
     column_names = [
