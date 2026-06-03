@@ -8,6 +8,8 @@ Supports:
 Any future year folders will be picked up automatically
 """
 import glob
+import os
+import re
 import pandas as pd
 
 def str_to_datetime(df: pd.DataFrame, name: str) -> pd.DataFrame:
@@ -118,6 +120,21 @@ def main():
         "donorbox_email (metadata)":"customer_email",
         "donorbox_recurring_donation (metadata)":"payment_metadata[donorbox_recurring_donation]"
     },inplace=True)
+    
+    # automatically loops through all folders starting from 2024 onwards
+    all_dfs = [df_old_fmt]
+    
+    if os.path.exists(base_dir):
+        for item in sorted(os.listdir(base_dir)):
+            if re.match(r"^\d{4}$", item):
+                year = int(item)
+                if year >= 2024:
+                    year_folder_files = glob.glob(f"{base_dir}/{item}/*.csv")
+                    if year_folder_files:
+                        print(f"Processing new format folder:{item}")
+                        df_year = new_format_data(year_folder_files, column_names_new)
+                        df_year.rename(columns={"customer_facing_amount": "amount"}, inplace=True)
+                        all_dfs.apenned(df_year)
     
     # get new fmt data + add new filepaths every year
     filepath_2024 = glob.glob("../stripe-statements/2024/*.csv")
