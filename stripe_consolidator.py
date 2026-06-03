@@ -65,7 +65,7 @@ def old_format_data(filepath: str, column_names: list) -> pd.DataFrame:
         pd.concat(data_2021, axis=0),
         pd.concat(data_2022, axis=0),
         pd.concat(dfs_may_2023, axis=0)
-    ], axis=0)
+    ], axis=0, ignore_index=True)
     
     return df
 
