@@ -1,0 +1,54 @@
+# Stripe monthly statement consolidation
+
+## An automated data pipleline designed to seamlessly merge fragmented, multi-year  Stripe financial reports into a single, standardised master dataset.
+
+------
+
+### The Problem: ###
+
+As our non-profit grew, managing historical financial data from Stripe became problematic over time due to two major challenges:
+
+- Fragmented Storage: The data is spread across multiple separate CSV files, organised into different structures by year (for example: 2021_06_to_2021_12, 2023, etc) This fragmentation made it incredibly difficult to perform multi-year financial analysis or reporting.
+- Schema Drift (different formats): In 2023, Stripe decided to update its reporting export format.
+  - _Old format_: Used colun headers like "id", "amount", "created_utc" and specific Donorbox metadata strings ("donorbox_name (metadata)).
+  - _New format_: Standardised to snake_case headers like "balance_transaction_id", "customer_facing_amount", "created_utc", and structured metadata brackets ("payment_metadata[donorbox_recurring_donation]).
+
+Impact: Because of these mismatched column names and shifting date formats, a standard, straightforward merge or append of all files would fail or result in corrupted or missing data.
+
+-------
+## The solution: Automated normalisation and consolidation of old and new formats (Technical guide - for non-tech guide see bottom)
+
+This script acts as an automated ETL (Extract, Transform, Load) pipeline that consolidates fragmented, multi-format financial data into a single analysis ready dataset.
+
+It accomplishes this through three core phases:
+
+1) Targeted Extraction:
+   - It dynamically identifies and loops through annual folders using file pattern matching (glob.glob).
+   - To optimise memory usage, it isolates and extracts only the relevant financial and metadata columns, ignoring unnecessary data fields.
+  
+2) Schema Normalisation (Transformation):
+   - Historical grouping: It manually maps and groups hardcoded legacy data structures (2021-2023)
+   - Column alignment: It programmatically maps and renames legacy column headers to match the modern Stripe format. For example, standardising "amount" and "customer_facing_amount" into just "amount").
+   - Data Type safety: It handles mixed date formats across the years by converting the "created_utc" strings into proper queryable datetime objects.
+3) Consolidated Loading:
+   - It securely stiches all dataframes together sequentially across time horizons.
+   - It exports the unfiied dataset into a Parquet file (full_data.parquet) utisiling Snappy compression. This ensures signifcantly faster query performance and drastically lower storage overhead compared to a massive raw CSV file.
+  
+  ## The solution (non-tech guide)
+
+  This script acts as a bridge between the old and the new reporting standards/format. It automates the extraction, transformation , and consolidation of all monthly CSV statements into a single and high performance master file ("full_data.parquet"). 
+  It provides 4 features/solutions:
+
+  1) **integrates old and new formats**
+  2) **multi year parsing** seamlessly integrates annual folders and monthly statement files since 2021.
+  3) **Data integrity** Converts text based timestamps into clean and uniformed datetime parameters ("UTC") to ensure chronological audit accuracy.
+  4) **Optimised storage and loading** Saves the final consolidated ledger into a compressed ".parquet" format which drastically reduces storage size whilst speeding up analytical loading time.
+
+---------
+
+## Results:
+
+  1) The data is clean and easy to read in one file.
+  2) Every time a statement is downloaded into the statements file it is automatically added to the dataset.
+  3) The script automatically recognises any CSV regardless of month or year and adds it to the consolidated ledger.
+  4) The data can be easily used to provide data visualisations and insight into donor/payment activity. 
