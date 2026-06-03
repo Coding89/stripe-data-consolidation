@@ -1,5 +1,11 @@
 """
-The script automatically consolidates Stripe monthly finanacial statements into a single Pandas dataframe.
+The script automatically consolidates Stripe monthly finanacial statements into a single Pandas dataframe for easier readibility.
+
+Supports:
+* Old stripe export format (2021-2023)
+* New Stripe export format (2024 onwards)
+
+Any future year folders will be picked up automatically
 """
 import glob
 import pandas as pd
