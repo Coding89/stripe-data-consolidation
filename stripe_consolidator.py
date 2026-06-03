@@ -37,12 +37,8 @@ def new_format_data(filepaths: str, column_names: list) -> pd.DataFrame:
         return pd.DataFrame()
     
     data = [pd.read_csv(file, sep=",", usecols=column_names) for file in filepaths]
-
-    df = pd.concat([
-        pd.concat(data, axis=0),
-    ], axis=0)
     
-    return df
+    return pd.concat(data, axis=0, ignore_index=True)
 
 def old_format_data(filepath: str, column_names: list) -> pd.DataFrame:
     """
