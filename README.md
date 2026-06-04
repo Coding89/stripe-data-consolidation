@@ -8,12 +8,17 @@
 
 As our non-profit grew, managing historical financial data from Stripe became problematic over time due to two major challenges:
 
-- Fragmented Storage: The data is spread across multiple separate CSV files and organised into different structures by year (for example: 2021_06_to_2021_12, 2023, etc). This fragmentation made it incredibly difficult to perform multi-year financial analysis or reporting.
-- Schema Drift (different formats): In 2023, Stripe decided to update its reporting export format.
-  - _The Old format_: Used colun headers like "id", "amount", "created_utc" and specific Donorbox metadata strings ("donorbox_name (metadata)).
-  - _The New format_: Standardised to snake_case headers like "balance_transaction_id", "customer_facing_amount", "created_utc", and structured metadata brackets ("payment_metadata[donorbox_recurring_donation]).
+- Fragmented Storage:
+The data is spread across multiple separate CSV files and organised into different structures by year (for example: 2021_06_to_2021_12, 2023, etc). This fragmentation made it incredibly difficult to perform multi-year financial analysis or reporting.
 
-Impact: Because of these mismatched column names and shifting date formats, a standard, straightforward merge or append of all files would fail or result in corrupted or missing data.
+- Schema Drift (different formats):
+In 2023, Stripe decided to update its reporting export format.
+  - _The Old format_: Used column headers like "id", "amount", "Created UTC" and specific Donorbox metadata strings ("donorbox_recurring_donation (metadata)).
+  - _The New format_: Standardised to snake_case headers like "balance_transaction_id",  "customer_facing_amount", "created_utc", and structured metadata brackets ("payment_metadata[donorbox_recurring_donation]).
+
+**Impact:** 
+
+Because of these mismatched column names and shifting date formats, a standard, straightforward merge or append of all files would fail or result in corrupted or missing data.
 
 -------
 ## The solution: Automated normalisation and consolidation of old and new formats (Technical guide - for non-tech guide see bottom)
@@ -30,6 +35,7 @@ It accomplishes this through three core phases:
    - Historical grouping: It manually maps and groups hardcoded legacy data structures (2021-2023)
    - Column alignment: It programmatically maps and renames legacy column headers to match the modern Stripe format. For example, standardising "amount" and "customer_facing_amount" into just "amount").
    - Data Type safety: It handles mixed date formats across the years by converting the "created_utc" strings into proper queryable datetime objects.
+
 3) Consolidated Loading:
    - It securely stiches all dataframes together sequentially across time horizons.
    - It exports the unfiied dataset into a Parquet file (full_data.parquet) utisiling Snappy compression. This ensures signifcantly faster query performance and drastically lower storage overhead compared to a massive raw CSV file.
