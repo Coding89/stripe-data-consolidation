@@ -6,7 +6,7 @@
 
 ### The Problem: ###
 
-As our non-profit grew, managing historical financial data from Stripe became problematic over time due to two major challenges:
+As our non-profit grew, managing our historical financial data from Stripe became problematic over time due to two major challenges:
 
 - Fragmented Storage:
 The data is spread across multiple separate CSV files and organised into different structures by year (for example: 2021_06_to_2021_12, 2023, etc). This fragmentation made it incredibly difficult to perform multi-year financial analysis or reporting.
@@ -16,7 +16,7 @@ In 2023, Stripe decided to update its reporting export format.
   - _The Old format_: Used column headers like "id", "amount", "Created UTC" and specific Donorbox metadata strings ("donorbox_recurring_donation (metadata)).
   - _The New format_: Standardised to snake_case headers like "balance_transaction_id",  "customer_facing_amount", "created_utc", and structured metadata brackets ("payment_metadata[donorbox_recurring_donation]).
 
-**Impact:** 
+### Impact: ### 
 
 Because of these mismatched column names and shifting date formats, a standard, straightforward merge or append of all files would fail or result in corrupted or missing data.
 
@@ -45,7 +45,7 @@ It accomplishes this through three core phases:
   This script acts as a bridge between the old and the new reporting standards/format. It automates the extraction, transformation , and consolidation of all monthly CSV statements into a single and high performance master file ("full_data.parquet"). 
   It provides 4 features/solutions:
 
-  1) **integrates old and new formats**
+  1) **integrates old and new formats.**
   2) **multi year parsing** seamlessly integrates annual folders and monthly statement files since 2021.
   3) **Data integrity** Converts text based timestamps into clean and uniformed datetime parameters ("UTC") to ensure chronological audit accuracy.
   4) **Optimised storage and loading** Saves the final consolidated ledger into a compressed ".parquet" format which drastically reduces storage size whilst speeding up analytical loading time.
