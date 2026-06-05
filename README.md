@@ -58,3 +58,20 @@ It accomplishes this through three core phases:
   2) Every time a statement is downloaded into the statements file it is automatically added to the dataset.
   3) The script automatically recognises any CSV regardless of month or year and adds it to the consolidated ledger.
   4) The data can be easily used to provide data visualisations and insight into donor/payment activity. 
+
+## Additional Information:
+
+ 1) I created a "basic_dashboard.py" file showing two visual charts using plotly:
+   - The first is a line chart showing "monthly consolidated revenue trends" over the months and years.
+   - The second is a pie chart that shows the distribution of currencies and amounts per currency.
+ 2) I created a "professional_dashboard.py" file showing three visual charts using plotly geared towards business presentations:
+   - Trend Analysis: A scatter graph showing monthly Gross Revenue vs. Net Income (Line/Area).
+   - Revenue Predictability: A bar chart showcasing total baseline   predictability.
+   - Revenue Breakdown: A donut chart displaying the revenue breakdown by category with custom colors and radial percentage labels.
+ 3) I created a "views.ipynb" file showing multiple matplotlib visual charts such as:
+   - Polished overhead cost distributions (histogram chart): charting fee frequencies.
+   - Fee consumption visualisations (horizontal bar chart): which isolates the top 10 donors with the vertical axis inverted to represent the highest fees paid.
+   - Seasonal Processing Matrix (vertical bar chart): illustrating total funds raised per month over the years.
+   - Cumulative Operational Financial Ledger (line chart): showcases total financial growth performance over time.
+
+All these visuals have helped us to track information useful to the fund raising and tracking of donations.
