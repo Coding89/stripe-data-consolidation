@@ -6,7 +6,8 @@ Generates three analytical Plotly visualisations:
 
 1. Trend Analysis: Monthly Gross Revenue vs. Net Income (Line/Area).
 2. Revenue Predictability: Stacked breakdown of recurring vs. One time giving.
-Lifetime funding mix: A donut chart showcasing total baseline predictability.
+Lifetime funding mix: A bar chart showcasing total baseline predictability.
+3. Revenue Breakdown: A donut chart displaying the revenue breakdown by category with custom colors and radial percentage labels.
 
 """
 
@@ -106,7 +107,7 @@ fig_pie = go.Figure(data=[go.Pie(
     textinfo='percent+label',
     insidetextorientation='radial'
 )])
-
+# formatting layout
 fig_pie.update_layout(
     title=dict(text="<b>Lifetime Funding Mix</b><br><sup>Proportion of Total Baseline Predictability</sup>", font=dict(size=18, color="#1B2B53")),
     font=dict(family=FONT_FAMILY),
@@ -114,7 +115,7 @@ fig_pie.update_layout(
     margin=dict(t=100, b=40, l=40, r=40),
     showlegend=False
 )
-
+# print out script
 if __name__ == "__main__":
     fig_trend.show()
     fig_mix.show()
