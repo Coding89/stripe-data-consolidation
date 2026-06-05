@@ -4,9 +4,8 @@ Stripe Financial Dashboard Engine:
 Processes raw transactional parquet data to calculate net processing volume.
 Generates three analytical Plotly visualisations:
 
-1. Trend Analysis: Monthly Gross Revenue vs. Net Income (Line/Area).
-2. Revenue Predictability: Stacked breakdown of recurring vs. One time giving.
-Lifetime funding mix: A bar chart showcasing total baseline predictability.
+1. Trend Analysis: A scatter graph showing monthly Gross Revenue vs. Net Income (Line/Area).
+2. Revenue Predictability: Stacked breakdown of recurring vs. One time giving. A bar chart showcasing total baseline predictability.
 3. Revenue Breakdown: A donut chart displaying the revenue breakdown by category with custom colors and radial percentage labels.
 
 """
@@ -40,7 +39,7 @@ COLOR_RECURRING = "#1E5DE6"
 COLOR_ONETIME = "#A0ACBE"
 BG_COLOR = "#FFFFFF"
 
-#Visualisation 1: The executive summary and trends
+#Visualisation 1: The executive summary and donation trends. Monthly Gross Revenue vs. Net Income (Line/Area).
 
 monthly = df.groupby("month")[["amount", "fee", "net_income"]].sum().reset_index()
 
