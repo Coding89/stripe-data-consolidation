@@ -6,7 +6,7 @@
 
 ### The Problem: ###
 
-As our non-profit grew, managing our historical financial data from Stripe became problematic over time due to two major challenges:
+As our non-profit expanded, managing our historical financial data from Stripe became problematic over time due to two major challenges:
 
 - Fragmented Storage:
 The data is spread across multiple separate CSV files and organised into different structures by year (for example: 2021_06_to_2021_12, 2023, etc). This fragmentation made it incredibly difficult to perform multi-year financial analysis or reporting.
@@ -23,7 +23,7 @@ Because of these mismatched column names and shifting date formats, a standard, 
 -------
 ## The solution: Automated normalisation and consolidation of old and new formats (Technical guide - for non-tech guide see bottom)
 
-This script acts as an automated ETL (Extract, Transform, Load) pipeline that consolidates fragmented, multi-format financial data into a single analysis ready dataset.
+This script acts as an automated ETL (Extract, Transform, Load) pipeline that consolidates fragmented, multi-format financial data into a single analysis ready dataset. This allows us to analyse the data in one place and create visuals for various different stakeholders.
 
 It accomplishes this through three core phases:
 
@@ -42,7 +42,8 @@ It accomplishes this through three core phases:
   
   ## The solution (non-tech guide)
 
-  This script acts as a bridge between the old and the new reporting standards/format. It automates the extraction, transformation , and consolidation of all monthly CSV statements into a single and high performance master file ("full_data.parquet"). 
+  This script acts as a bridge between the old and the new reporting standards/format. It automates the extraction, transformation , and consolidation of all monthly CSV statements into a single and high performance master file ("full_data.parquet"). This allows us to analyse the data in one place and create visuals for various different stakeholders.
+
   It provides 4 features/solutions:
 
   1) **integrates old and new formats.**
