@@ -20,6 +20,8 @@ In 2023, Stripe decided to update its reporting export format.
 
 Because of these mismatched column names and shifting date formats, a standard, straightforward merge or append of all files would fail or result in corrupted or missing data.
 
+We also had files located in various different folders and largely disorganised datasets with missing data.
+
 -------
 ## The solution: Automated normalisation and consolidation of old and new formats (Technical guide - for non-tech guide see bottom)
 
@@ -33,7 +35,7 @@ It accomplishes this through three core phases:
   
 2) Schema Normalisation (Transformation):
    - Historical grouping: It manually maps and groups hardcoded legacy data structures (2021-2023)
-   - Column alignment: It programmatically maps and renames legacy column headers to match the modern Stripe format. For example, standardising "amount" and "customer_facing_amount" into just "amount").
+   - Column alignment: It programmatically maps and renames legacy column headers to match the modern Stripe format. For example, standardising "amount" and "customer_facing_amount" into just "amount".
    - Data Type safety: It handles mixed date formats across the years by converting the "created_utc" strings into proper queryable datetime objects.
 
 3) Consolidated Loading:
@@ -48,7 +50,7 @@ It accomplishes this through three core phases:
 
   1) **integrates old and new formats.**
   2) **multi year parsing** seamlessly integrates annual folders and monthly statement files since 2021.
-  3) **Data integrity** Converts text based timestamps into clean and uniformed datetime parameters ("UTC") to ensure chronological audit accuracy.
+  3) **Data integrity** converts text based timestamps into clean and uniformed datetime parameters ("UTC") to ensure chronological audit accuracy.
   4) **Optimised storage and loading** Saves the final consolidated ledger into a compressed ".parquet" format which drastically reduces storage size whilst speeding up analytical loading time.
 
 ---------
