@@ -20,7 +20,7 @@ In 2023, Stripe decided to update its reporting export format.
 
 Because of these mismatched column names and shifting date formats, a standard, straightforward merge or append of all files would fail or result in corrupted or missing data.
 
-We also had files located in various different folders and largely disorganised datasets with missing data.
+We also had files located in various different folders and largely disorganised datasets with missing data creating issues with finding and locating the files. We needed a place where all the data is consolidated.
 
 -------
 ## The solution: Automated normalisation and consolidation of old and new formats (Technical guide - for non-tech guide see bottom)
