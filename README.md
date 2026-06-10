@@ -23,7 +23,7 @@ Because of these mismatched column names and shifting date formats, a standard, 
 We also had files located in various different folders and largely disorganised datasets with missing data creating issues with finding and locating the files. We needed a place where all the data is consolidated.
 
 -------
-## The solution: Automated normalisation and consolidation of old and new formats (Technical guide - for non-tech guide see bottom)
+## The solution: Automated normalisation and consolidation of old and new formats (Technical guide - for non-tech guide see bottom) ##
 
 This script acts as an automated ETL (Extract, Transform, Load) pipeline that consolidates fragmented, multi-format financial data into a single analysis ready dataset. This allows us to analyse the data in one place and create visuals for various different stakeholders.
 
@@ -42,7 +42,7 @@ It accomplishes this through three core phases:
    - It securely stiches all dataframes together sequentially across time horizons.
    - It exports the unfiied dataset into a Parquet file (full_data.parquet) utisiling Snappy compression. This ensures signifcantly faster query performance and drastically lower storage overhead compared to a massive raw CSV file.
   
-  ## The solution (non-tech guide)
+  ## The solution (non-tech guide) ##
 
   This script acts as a bridge between the old and the new reporting standards/format. It automates the extraction, transformation , and consolidation of all monthly CSV statements into a single and high performance master file ("full_data.parquet"). This allows us to analyse the data in one place and create visuals for various different stakeholders.
 
@@ -55,14 +55,14 @@ It accomplishes this through three core phases:
 
 ---------
 
-## Results:
+## Results: ##
 
   1) The data is clean and easy to read in one file.
   2) Every time a statement is downloaded into the statements file it is automatically added to the dataset.
   3) The script automatically recognises any CSV regardless of month or year and adds it to the consolidated ledger.
   4) The data can be easily used to provide data visualisations and insight into donor/payment activity. 
 
-## Additional Information:
+## Additional Information: ##
 
  1) I created a "basic_dashboard.py" file showing two visual charts using plotly:
    - The first is a line chart showing "monthly consolidated revenue trends" over the months and years.
@@ -79,7 +79,7 @@ It accomplishes this through three core phases:
 
 All these visuals have helped us to track information useful to the fund raising and tracking of donations.
 
-##Disclaimer:
+## Disclaimer: ##
 
 1) No private details or data are shown.
 2) Column titles are based on readily available Stripe statements that come standard for all.
