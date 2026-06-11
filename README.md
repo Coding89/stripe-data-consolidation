@@ -7,7 +7,7 @@
 
 - ![python](https://img.shields.io/badge/Python-3.9-3776AB.svg?style=flat&logo=python&logoColor=white)
 - ![pandas](https://img.shields.io/badge/-Pandas-333333?style=flat&logo=pandas)
-- <a href="https://apache/org"><img src="https://arrow.apache.org/img/arrow-logo_horizontal_black-txt_white-bg.png" alt="pyarrow" height="69"></a>
+- <a href="https://apache/org"><img src="https://arrow.apache.org/img/arrow-logo_horizontal_black-txt_white-bg.png" alt="pyarrow" height="25"></a> 
 - ![plotly](https://img.shields.io/badge/-Plotly-3F4F75?style=flat-square&logo=plotly&logoColor=white)
 - ![Matplotlib](https://img.shields.io/badge/-Matplotlib-000000?style=flat&logo=python)
 - ![Jupyter Notebook](https://img.shields.io/badge/Jupyter%20Notebook-F37626?style=flat-square&logo=jupyter&logoColor=white)
@@ -33,7 +33,7 @@ Because of these mismatched column names and shifting date formats, a standard, 
 We also had files located in various different folders and largely disorganised datasets with missing data creating issues with finding and locating the files. We needed a place where all the data is consolidated.
 
 -------
-## The solution: Automated normalisation and consolidation of old and new formats (Technical guide - for non-tech guide see bottom) ##
+## The solution: Automated normalisation and consolidation of old and new formats (Technical guide) ##
 
 This script acts as an automated ETL (Extract, Transform, Load) pipeline that consolidates fragmented, multi-format financial data into a single analysis ready dataset. This allows us to analyse the data in one place and create visuals for various different stakeholders.
 
