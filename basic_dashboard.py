@@ -3,6 +3,8 @@ Python script to create financial visual trends.
 The first is a line chart showing "monthly consolidated revenue trends" over the months and years.
 The second is a pie chart that shows the distribution of currencies and amounts per currency.
 
+The outputs are one line chart and one pie chart.
+
 """
 
 import pandas as pd
