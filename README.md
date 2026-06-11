@@ -1,8 +1,18 @@
 # Stripe monthly statement consolidation
 
-## An automated data pipleline designed to seamlessly merge fragmented, multi-year  Stripe financial reports into a single, standardised master dataset.
+## An automated data pipeline designed to seamlessly merge fragmented, multi-year  Stripe financial reports into a single, standardised master dataset.
 
 ------
+### Built With: ###
+
+- Python 3.x
+- Pandas
+- PyArrow/Fast Parquet
+- Plotly
+- Matplotlib
+- Jupyter Notebook
+- Glob
+-------
 
 ### The Problem: ###
 
@@ -40,7 +50,7 @@ It accomplishes this through three core phases:
 
 3) Consolidated Loading:
    - It securely stiches all dataframes together sequentially across time horizons.
-   - It exports the unfiied dataset into a Parquet file (full_data.parquet) utisiling Snappy compression. This ensures signifcantly faster query performance and drastically lower storage overhead compared to a massive raw CSV file.
+   - It exports the unified dataset into a Parquet file (full_data.parquet) utisiling Snappy compression. This ensures signifcantly faster query performance and drastically lower storage overhead compared to a massive raw CSV file.
   
   ## The solution (non-tech guide) ##
 
