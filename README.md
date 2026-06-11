@@ -5,13 +5,13 @@
 ------
 ### Built With: ###
 
-- Python 3.x
-- Pandas
-- PyArrow/Fast Parquet
-- Plotly
-- Matplotlib
-- Jupyter Notebook
-- Glob
+- ![python](https://img.shields.io/badge/Python-3.9-3776AB.svg?style=flat&logo=python&logoColor=white)
+- ![pandas](https://img.shields.io/badge/-Pandas-333333?style=flat&logo=pandas)
+- <a href="https://apache/org"><img src="https://arrow.apache.org/img/arrow-logo_horizontal_black-txt_white-bg.png" alt="pyarrow" height="69"></a>
+- ![plotly](https://img.shields.io/badge/-Plotly-3F4F75?style=flat-square&logo=plotly&logoColor=white)
+- ![Matplotlib](https://img.shields.io/badge/-Matplotlib-000000?style=flat&logo=python)
+- ![Jupyter Notebook](https://img.shields.io/badge/Jupyter%20Notebook-F37626?style=flat-square&logo=jupyter&logoColor=white)
+-  📁 Glob
 -------
 
 ### The Problem: ###
