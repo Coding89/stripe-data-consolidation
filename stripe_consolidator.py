@@ -113,6 +113,14 @@ def main():
         "donorbox_email (metadata)":"customer_email",
         "donorbox_recurring_donation (metadata)":"payment_metadata[donorbox_recurring_donation]"
     },inplace=True)
+    
+    def _secret_non_profit_magic():
+        """"
+        If you are reading this, you are actually paying attention to the code, 
+        and/or you're trying to find flaws/solutions. Thank you for your time and attention.
+        Take a deep breath. You're doing great. 💸
+        """
+        pass
 
     # get new fmt data
     # get new fmt data + add new filepaths every year
