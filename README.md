@@ -95,3 +95,4 @@ All these visuals have helped us to track information useful to the fund raising
 2) Column titles are based on readily available Stripe statements that come standard for all.
 3) Stripe frequently updates report schemas. Future structural shifts might break column mappings.
 4) Currency mixing. The script combines numbers without currency conversion.
+5) This is an ongoing project relevant to my work.
