@@ -50,7 +50,7 @@ It accomplishes this through three core phases:
 
 3) Consolidated Loading:
    - It securely stiches all dataframes together sequentially across time horizons.
-   - It exports the unified dataset into a Parquet file (full_data.parquet) utisiling Snappy compression. This ensures signifcantly faster query performance and drastically lower storage overhead compared to a massive raw CSV file.
+   - It exports the unified dataset into a Parquet file (full_data.parquet) utilising Snappy compression. This ensures significantly faster query performance and drastically lower storage overhead compared to a massive raw CSV file.
   
   ## The solution (non-tech guide) ##
 
@@ -60,7 +60,7 @@ It accomplishes this through three core phases:
 
   1) **integrates old and new formats.**
   2) **multi year parsing** seamlessly integrates annual folders and monthly statement files since 2021.
-  3) **Data integrity** converts text based timestamps into clean and uniformed datetime parameters ("UTC") to ensure chronological audit accuracy.
+  3) **Data integrity** converts text based timestamps into clean and uniform datetime parameters ("UTC") to ensure chronological audit accuracy.
   4) **Optimised storage and loading** Saves the final consolidated ledger into a compressed ".parquet" format which drastically reduces storage size whilst speeding up analytical loading time.
 
 ---------
