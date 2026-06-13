@@ -70,7 +70,8 @@ It accomplishes this through three core phases:
   1) The data is clean and easy to read in one file.
   2) Every time a statement is downloaded into the statements file it is automatically added to the dataset.
   3) The script automatically recognises any CSV regardless of month or year and adds it to the consolidated ledger.
-  4) The data can be easily used to provide data visualisations and insight into donor/payment activity. 
+  4) The data can be easily used to provide data visualisations and insight into donor/payment activity.
+  5) Heavily reduced the amount of time searching or organising data allowing time/resources to be focused elsewhere. 
 
 ## Additional Information: ##
 
