@@ -81,7 +81,7 @@ It accomplishes this through three core phases:
 
 --------
 
-## Additional Information: ##
+## Visual Dashboards: ##
 
  1) I created a "basic_dashboard.py" file showing two visual charts using plotly:
    - The first is a line chart showing "monthly consolidated revenue trends" over the months and years.
