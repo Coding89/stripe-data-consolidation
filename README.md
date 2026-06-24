@@ -19,7 +19,7 @@
 As our non-profit expanded, managing our historical financial data from Stripe became problematic over time due to two major challenges:
 
 - Fragmented Storage:
-The data is spread across multiple separate CSV files and organised into different structures by year (for example: 2021_06_to_2021_12, 2023, etc). This fragmentation made it incredibly difficult to perform multi-year financial analysis or reporting.
+The data is spread across multiple separate CSV files and organised into different format structures by year (for example: 2021_06_to_2021_12, 2023, etc). This fragmentation made it incredibly difficult to perform multi year financial analysis or reporting.
 
 - Schema Drift (different formats):
 In 2023, Stripe decided to update its reporting export format.
@@ -67,6 +67,31 @@ It accomplishes this through three core phases:
   2) **multi year parsing** seamlessly integrates annual folders and monthly statement files since 2021.
   3) **Data integrity** converts text based timestamps into clean and uniform datetime parameters ("UTC") to ensure chronological audit accuracy.
   4) **Optimised storage and loading** Saves the final consolidated ledger into a compressed ".parquet" format which drastically reduces storage size whilst speeding up analytical loading time.
+ 
+---------
+## Opening the Parquet file ##
+
+The script saves the consolidated data as 'full_data.parquet'.
+
+To open:
+
+1) Open up Python
+2) In the terminal, type in:
+
+import pandas as pd
+df = pd.read_parquet('full_data.parquet')
+
+### Prerequisites:
+
+#### Bash: ####
+
+pip install pandas pyarrow
+
+### Alternative Tools:
+
+1) VS Code: Install the Parquet Viewer extension.
+2) DuckDB: SELECT * FROM read_parquet('full_data.parquet')
+3) Excel: Convert to CSV first using Python or an online tool.
 
 ---------
 
