@@ -129,3 +129,4 @@ pip install pandas pyarrow
 3) Stripe frequently updates report schemas. Future structural shifts might break column mappings.
 4) Currency mixing. The script combines numbers without currency conversion.
 5) This is an ongoing project relevant to my work.
+6) As with many files, data can be missing and manual corrections are required.
