@@ -4,6 +4,7 @@ The script automatically consolidates Stripe monthly finanacial statements into 
 import glob
 import pandas as pd
 
+
 def str_to_datetime(df: pd.DataFrame, name: str) -> pd.DataFrame:
     """
     converting a named series to datetime from str
@@ -49,6 +50,7 @@ def old_format_data(filepath: str, column_names: list) -> pd.DataFrame:
         pd.read_csv("../stripe-statements/2021_06_to_2021_12/November_2021.csv", usecols=column_names),
         pd.read_csv("../stripe-statements/2021_06_to_2021_12/December_2021.csv", usecols=column_names),
     ]
+    #note the different .csv file names for 2021 and 2023.
     data_2022 = [pd.read_csv(file,sep=",", usecols=column_names) for file in filepath]
     dfs_may_2023 = [
         pd.read_csv("../stripe-statements/2023/January 2023.csv", usecols=column_names),
@@ -87,7 +89,7 @@ def main():
 
     # required column names    
     column_names_new = [
-        "customer_name",
+        "payment_metadata[donorbox_name]",
         "description",
         "created_utc",
         "customer_facing_amount",
@@ -102,27 +104,40 @@ def main():
     # map new column names to old fmt dataframe
     df_old_fmt = old_format_data(filepath=filepath_2022, column_names=column_names)
     df_old_fmt.rename(columns={
+        "donorbox_name (metadata)":"payment_metadata[donorbox_name]",
         "id": "balance_transaction_id",
-        "Description": "description",
         "Created (UTC)":"created_utc",
         "Amount": "amount",
-        "Currency":"currency",
         "Fee":"fee",
+        "Currency":"currency",
+        "Description": "description",
         "Customer ID":"customer_id",
-        "donorbox_name (metadata)":"customer_name",
         "donorbox_email (metadata)":"customer_email",
         "donorbox_recurring_donation (metadata)":"payment_metadata[donorbox_recurring_donation]"
     },inplace=True)
     
-    def _secret_non_profit_magic():
+    def _secret_non_stripe_magic():
         """"
         If you are reading this, you are actually paying attention to the code, 
         and/or you're trying to find flaws/solutions. Thank you for your time and attention.
         Take a deep breath. You're doing great. 💸
         """
         pass
+    
+    #new format for 2023 from May 2023 onwards
+    filepath_2023_may_dec = [
+        "../stripe-statements/2023/May 2023.csv",
+        "../stripe-statements/2023/June 2023.csv",
+        "../stripe-statements/2023/July 2023.csv",
+        "../stripe-statements/2023/August 2023.csv",
+        "../stripe-statements/2023/September 2023.csv",
+        "../stripe-statements/2023/October 2023.csv",
+        "../stripe-statements/2023/November 2023.csv",
+        "../stripe-statements/2023/December 2023.csv"
+    ]
+    df_2023_may_dec = new_format_data(filepath_2023_may_dec, column_names=column_names_new)
+    df_2023_may_dec.rename(columns={"customer_facing_amount":"amount"}, inplace=True)
 
-    # get new fmt data
     # get new fmt data + add new filepaths every year
     filepath_2024 = glob.glob("../stripe-statements/2024/*.csv")
     df_2024_fmt = new_format_data(filepath_2024, column_names=column_names_new)
@@ -135,11 +150,13 @@ def main():
     filepath_2026 = glob.glob("../stripe-statements/2026/*.csv")
     df_2026_fmt = new_format_data(filepath_2026, column_names=column_names_new)
     df_2026_fmt.rename(columns={"customer_facing_amount":"amount"},inplace=True)
+    
 
     # save all data
-    df = pd.concat([df_old_fmt, df_2024_fmt, df_2025_fmt, df_2026_fmt], axis=0)
+    df = pd.concat([df_old_fmt, df_2023_may_dec, df_2024_fmt, df_2025_fmt, df_2026_fmt], axis=0)
     df=str_to_datetime(df, name="created_utc")
     df.to_parquet("full_data.parquet", index=False, engine="pyarrow", compression="snappy")
 
 if __name__ == "__main__":
     main()
+    
