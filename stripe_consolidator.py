@@ -3,6 +3,7 @@ The script automatically consolidates Stripe monthly finanacial statements into 
 """
 import glob
 import pandas as pd
+import datetime
 
 
 def str_to_datetime(df: pd.DataFrame, name: str) -> pd.DataFrame:
@@ -151,9 +152,18 @@ def main():
     df_2026_fmt = new_format_data(filepath_2026, column_names=column_names_new)
     df_2026_fmt.rename(columns={"customer_facing_amount":"amount"},inplace=True)
     
+    #Going forward this will add new .csv files for future years
+    current_year = datetime.datetime.now().year
+    future_dfs = []
+    for year in range(2027, current_year + 1):
+        filepath = glob.glob(f"../stripe-statements/{year}/*.csv")
+        if filepath:
+            df_year = new_format_data(filepath, column_names=column_names_new)
+            df_year.rename(columns={"customer_facing_amount":"amount"}, inplace=True)
+            future_dfs.append(df_year)
 
     # save all data
-    df = pd.concat([df_old_fmt, df_2023_may_dec, df_2024_fmt, df_2025_fmt, df_2026_fmt], axis=0)
+    df = pd.concat([df_old_fmt, df_2023_may_dec, df_2024_fmt, df_2025_fmt, df_2026_fmt] + future_dfs, axis=0)
     df=str_to_datetime(df, name="created_utc")
     df.to_parquet("full_data.parquet", index=False, engine="pyarrow", compression="snappy")
 
