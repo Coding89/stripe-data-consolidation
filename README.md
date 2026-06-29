@@ -78,14 +78,24 @@ To open:
 1) Open up Python
 2) In the terminal, type in:
 
+```
 import pandas as pd
 df = pd.read_parquet('full_data.parquet')
+```
+----------
+** Clone the repository **
 
 ### Prerequisites:
 
 #### Bash: ####
+```
+pip install -r requirements.txt
 
 pip install pandas pyarrow
+
+python stripe_consolidator.py
+
+```
 
 ### Alternative Tools:
 
