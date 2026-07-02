@@ -63,11 +63,33 @@ It accomplishes this through three core phases:
 
   It provides 4 features/solutions:
 
-  1) **integrates old and new formats.**
+  1) **integrates old and new formats**
   2) **multi year parsing** seamlessly integrates annual folders and monthly statement files since 2021.
   3) **Data integrity** converts text based timestamps into clean and uniform datetime parameters ("UTC") to ensure chronological audit accuracy.
   4) **Optimised storage and loading** Saves the final consolidated ledger into a compressed ".parquet" format which drastically reduces storage size whilst speeding up analytical loading time.
+
+-----
  
+## Setup and installing the dependencies: ##
+
+### Bash: ###
+```
+git clone https://github.com/Coding89/stripe-data-consolidation.git
+
+cd stripe-consolidator
+```
+
+#### Install dependences: ###
+```
+pip install -r requirements.txt
+
+pip install pandas pyarrow plotly matplotlib
+```
+
+### Run the pipeline ###
+```
+python stripe_consolidator.py
+```
 ---------
 ## Opening the Parquet file ##
 
@@ -83,21 +105,9 @@ import pandas as pd
 df = pd.read_parquet('full_data.parquet')
 ```
 ----------
-** Clone the repository **
 
-### Prerequisites:
 
-#### Bash: ####
-```
-pip install -r requirements.txt
-
-pip install pandas pyarrow
-
-python stripe_consolidator.py
-
-```
-
-### Alternative Tools:
+### Alternative Tools: ###
 
 1) VS Code: Install the Parquet Viewer extension.
 2) DuckDB: SELECT * FROM read_parquet('full_data.parquet')
