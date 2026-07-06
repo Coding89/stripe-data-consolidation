@@ -140,7 +140,7 @@ def main():
     df_2023_may_dec.rename(columns={"customer_facing_amount":"amount"}, inplace=True)
 
     # get new fmt data + add new filepaths every year
-    filepath_2024 = glob.glob("../stripe-statements/2024/*.csv")
+    filepath_2024 = glob.glob("../stripe-statements/2024/2024-*.csv")
     df_2024_fmt = new_format_data(filepath_2024, column_names=column_names_new)
     df_2024_fmt.rename(columns={"customer_facing_amount":"amount"},inplace=True)
 
