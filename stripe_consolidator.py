@@ -83,7 +83,6 @@ def main():
         "Fee",
         "Customer ID",
         "donorbox_recurring_donation (metadata)",
-        "id",
         "Currency",
         "donorbox_email (metadata)"
     ]
@@ -95,11 +94,10 @@ def main():
         "created_utc",
         "customer_facing_amount",
         "fee",
-        "customer_id",
         "payment_metadata[donorbox_recurring_donation]",
         "balance_transaction_id",
         "currency",
-        "customer_email"
+        "payment_metadata[donorbox_email]"
     ]
 
     # map new column names to old fmt dataframe
@@ -112,8 +110,8 @@ def main():
         "Fee":"fee",
         "Currency":"currency",
         "Description": "description",
-        "Customer ID":"customer_id",
-        "donorbox_email (metadata)":"customer_email",
+        "Customer ID":"source_id",
+        "donorbox_email (metadata)":"payment_metadata[donorbox_email]",
         "donorbox_recurring_donation (metadata)":"payment_metadata[donorbox_recurring_donation]"
     },inplace=True)
     
