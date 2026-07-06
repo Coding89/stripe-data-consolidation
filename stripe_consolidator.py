@@ -148,7 +148,8 @@ def main():
     df_2025_fmt = new_format_data(filepath_2025, column_names=column_names_new)
     df_2025_fmt.rename(columns={"customer_facing_amount":"amount"},inplace=True)
 
-    filepath_2026 = glob.glob("../stripe-statements/2026/*.csv")
+    # Update: added a new YYYY-MM.csv format going forward
+    filepath_2026 = glob.glob("../stripe-statements/2026/2026-*.csv")
     df_2026_fmt = new_format_data(filepath_2026, column_names=column_names_new)
     df_2026_fmt.rename(columns={"customer_facing_amount":"amount"},inplace=True)
     
@@ -156,7 +157,7 @@ def main():
     current_year = datetime.datetime.now().year
     future_dfs = []
     for year in range(2027, current_year + 1):
-        filepath = glob.glob(f"../stripe-statements/{year}/*.csv")
+        filepath = glob.glob(f"../stripe-statements/{year}/{year}-*.csv")
         if filepath:
             df_year = new_format_data(filepath, column_names=column_names_new)
             df_year.rename(columns={"customer_facing_amount":"amount"}, inplace=True)
