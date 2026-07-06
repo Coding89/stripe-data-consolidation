@@ -144,7 +144,7 @@ def main():
     df_2024_fmt = new_format_data(filepath_2024, column_names=column_names_new)
     df_2024_fmt.rename(columns={"customer_facing_amount":"amount"},inplace=True)
 
-    filepath_2025 = glob.glob("../stripe-statements/2025/*.csv")
+    filepath_2025 = glob.glob("../stripe-statements/2025/2025-*.csv")
     df_2025_fmt = new_format_data(filepath_2025, column_names=column_names_new)
     df_2025_fmt.rename(columns={"customer_facing_amount":"amount"},inplace=True)
 
