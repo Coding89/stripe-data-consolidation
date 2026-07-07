@@ -77,11 +77,11 @@ def main():
     # old column names
     column_names = [
         "donorbox_name (metadata)",
+        "id",
         "Description",
         "Created (UTC)",
         "Amount",
         "Fee",
-        "Customer ID",
         "donorbox_recurring_donation (metadata)",
         "Currency",
         "donorbox_email (metadata)"
@@ -90,6 +90,7 @@ def main():
     # required column names    
     column_names_new = [
         "payment_metadata[donorbox_name]",
+        "source_id",
         "description",
         "created_utc",
         "customer_facing_amount",
@@ -104,13 +105,12 @@ def main():
     df_old_fmt = old_format_data(filepath=filepath_2022, column_names=column_names)
     df_old_fmt.rename(columns={
         "donorbox_name (metadata)":"payment_metadata[donorbox_name]",
-        "id": "balance_transaction_id",
+        "id": "source_id",
         "Created (UTC)":"created_utc",
         "Amount": "amount",
         "Fee":"fee",
         "Currency":"currency",
         "Description": "description",
-        "Customer ID":"source_id",
         "donorbox_email (metadata)":"payment_metadata[donorbox_email]",
         "donorbox_recurring_donation (metadata)":"payment_metadata[donorbox_recurring_donation]"
     },inplace=True)
