@@ -133,4 +133,5 @@ df = pd.read_parquet('full_data.parquet')
 4) Currency mixing. The script combines numbers without currency conversion.
 5) This is an ongoing project relevant to my work.
 6) As with many files, data can be missing and manual corrections/input are required.
-7) This script/software is "as is" and provided "as is". Please use it entirely at your discretion and risk. The creator assumes no responsiblity or liability for any damages or losses incurred.
+7) Within the parquet file, there are missing values pertaining to "Card Account Updater" which is a service that automatically refreshes expired, lost or reissued. This project solo focuses on donations.
+8) This script/software is "as is" and provided "as is". Please use it entirely at your discretion and risk. The creator assumes no responsiblity or liability for any damages or losses incurred.
