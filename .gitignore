@@ -4,3 +4,5 @@
 checks.ipynb
 stripe-statements
 pytest_data_consolidator.py
+basic_dashboard.py
+professional_dashboard.py
